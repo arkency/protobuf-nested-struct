@@ -16,6 +16,14 @@ module RubyEventStore
         case obj
           when NilClass
             self.null_value = 0
+          when Integer
+            self.int_value = obj
+          when Float
+            self.double_value = obj
+          when String
+            self.string_value = obj
+          when TrueClass, FalseClass
+            self.bool_value = obj
           else
             raise ArgumentError
           end
@@ -25,6 +33,14 @@ module RubyEventStore
         case self.kind
         when :null_value
           nil
+        when :int_value
+          int_value
+        when :double_value
+          double_value
+        when :string_value
+          string_value
+        when :bool_value
+          bool_value
         else
           raise ArgumentError
         end
