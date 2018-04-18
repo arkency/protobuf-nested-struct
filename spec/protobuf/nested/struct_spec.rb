@@ -1,4 +1,5 @@
 require "protobuf/nested/struct"
+require "yaml"
 
 RSpec.describe Protobuf::Nested do
   Value        = RubyEventStore::Protobuf::Value
@@ -108,6 +109,140 @@ RSpec.describe Protobuf::Nested do
     v.from_ruby([1, [2.0, [Date.today], nil]])
     expect(v.to_ruby).to eql([1, [2.0, [Date.today], nil]])
     expect(clone(v).to_ruby).to eql([1, [2.0, [Date.today], nil]])
+  end
+
+  specify "serializes anything" do
+    hash = {
+      '1' => nil,
+      '2' => 2,
+      '3' => 3.2,
+      '4' => '44',
+      '5' => true,
+      '6' => false,
+      '7' => Date.new(2018, 4, 18),
+      '8' => Time.new(2018, 4, 18),
+      '9' => {
+        '1' => nil,
+        '2' => 2,
+        '3' => 3.2,
+        '4' => '44',
+        '5' => true,
+        '6' => false,
+        '7' => Date.new(2018, 5, 18),
+        '8' => Time.new(2018, 5, 18),
+        '9' => {
+          '1' => nil,
+          '2' => 2,
+          '3' => 3.2,
+          '4' => '44',
+          '5' => true,
+          '6' => false,
+          '7' => Date.new(2018, 6, 18),
+          '8' => Time.new(2018, 6, 18),
+        },
+        '10' => [
+          nil,
+          5,
+          7.4,
+          's',
+          true,
+          false,
+          Date.new(2018, 4, 18),
+          Time.new(2018, 4, 18),
+          [
+            nil,
+            5,
+            7.4,
+            's',
+            true,
+            false,
+            Date.new(2018, 4, 18),
+            Time.new(2018, 4, 18),
+          ]
+        ]
+      },
+      '10' => [
+        nil,
+        5,
+        7.4,
+        's',
+        true,
+        false,
+        Date.new(2018, 4, 18),
+        Time.new(2018, 4, 18),
+        {
+          '1' => nil,
+          '2' => 2,
+          '3' => 3.2,
+          '4' => '44',
+          '5' => true,
+          '6' => false,
+          '7' => Date.new(2018, 4, 18),
+          '8' => Time.new(2018, 4, 18),
+          '9' => {
+            '1' => nil,
+            '2' => 2,
+            '3' => 3.2,
+            '4' => '44',
+            '5' => true,
+            '6' => false,
+            '7' => Date.new(2018, 6, 18),
+            '8' => Time.new(2018, 6, 18),
+          },
+          '10' => [
+            nil,
+            5,
+            7.4,
+            's',
+            true,
+            false,
+            Date.new(2018, 4, 18),
+            Time.new(2018, 4, 18),
+            {
+              '1' => nil,
+              '2' => 2,
+              '3' => 3.2,
+              '4' => '44',
+              '5' => true,
+              '6' => false,
+              '7' => Date.new(2018, 4, 18),
+              '8' => Time.new(2018, 4, 18),
+              '9' => {
+                '1' => nil,
+                '2' => 2,
+                '3' => 3.2,
+                '4' => '44',
+                '5' => true,
+                '6' => false,
+                '7' => Date.new(2018, 6, 18),
+                '8' => Time.new(2018, 6, 18),
+              },
+              '10' => [
+                nil,
+                5,
+                7.4,
+                's',
+                true,
+                false,
+                Date.new(2018, 4, 18),
+                Time.new(2018, 4, 18),
+              ]
+            }
+          ]
+        }
+      ]
+    }
+
+    hash2 = YAML.load(YAML.dump(hash))
+    v = Value.new
+    v.from_ruby(hash)
+    expect(v.to_ruby).to eql(hash2)
+    expect(clone(v).to_ruby).to eql(hash2)
+
+    s = S.new
+    s.from_ruby(hash)
+    expect(s.to_ruby).to eql(hash2)
+    expect(clone(s).to_ruby).to eql(hash2)
   end
 
   def clone(v)
