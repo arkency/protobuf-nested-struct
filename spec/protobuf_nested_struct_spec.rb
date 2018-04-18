@@ -1,4 +1,3 @@
-require "protobuf/nested/struct"
 require "yaml"
 
 module ProtobufNestedStruct

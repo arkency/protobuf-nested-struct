@@ -1,7 +1,9 @@
-require "protobuf/nested/struct/version"
-require "protobuf/nested/struct_pb"
-require "date"
-require "google/protobuf/well_known_types"
+require 'date'
+require 'google/protobuf'
+require 'google/protobuf/well_known_types'
+
+require 'protobuf_nested_struct/version'
+require 'protobuf_nested_struct/struct_pb'
 
 module ProtobufNestedStruct
   Value.class_eval do
@@ -27,31 +29,31 @@ module ProtobufNestedStruct
           self.list_value = ListValue.new.tap{|ps| ps.from_ruby(obj) }
         else
           raise ArgumentError, "not allowed: #{obj.inspect}"
-        end
+      end
     end
 
     def to_ruby
       case self.kind
-      when :null_value
-        nil
-      when :int_value
-        int_value
-      when :double_value
-        double_value
-      when :string_value
-        string_value
-      when :bool_value
-        bool_value
-      when :date_value
-        Date.new(date_value.year, date_value.month, date_value.day)
-      when :timestamp_value
-        timestamp_value.to_time
-      when :string_map_value
-        string_map_value.to_ruby
-      when :list_value
-        list_value.to_ruby
-      else
-        raise ArgumentError
+        when :null_value
+          nil
+        when :int_value
+          int_value
+        when :double_value
+          double_value
+        when :string_value
+          string_value
+        when :bool_value
+          bool_value
+        when :date_value
+          Date.new(date_value.year, date_value.month, date_value.day)
+        when :timestamp_value
+          timestamp_value.to_time
+        when :string_map_value
+          string_map_value.to_ruby
+        when :list_value
+          list_value.to_ruby
+        else
+          raise ArgumentError
       end
     end
 
@@ -77,7 +79,7 @@ module ProtobufNestedStruct
     def from_ruby(obj)
       Array === obj or raise ArgumentError
       self.values.clear
-       obj.each do |value|
+      obj.each do |value|
         self.values << Value.new.tap{|v| v.from_ruby(value) }
       end
     end

@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "protobuf/nested/struct"
+require "protobuf_nested_struct"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

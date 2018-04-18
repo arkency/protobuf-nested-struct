@@ -1,13 +1,13 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "protobuf/nested/struct/version"
+require "protobuf_nested_struct/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "protobuf-nested-struct"
-  spec.version       = Protobuf::Nested::Struct::VERSION
-  spec.authors       = ["Robert Pankowecki"]
-  spec.email         = ["robert.pankowecki@gmail.com"]
+  spec.name          = "protobuf_nested_struct"
+  spec.version       = ProtobufNestedStruct::VERSION
+  spec.authors       = ["Robert Pankowecki", "Arkency"]
+  spec.email         = ["dev@arkency.com"]
 
   spec.summary       = %q{Serialize deep structures to protobuf}
   spec.description   = %q{Serialize deep structures to protobuf}
