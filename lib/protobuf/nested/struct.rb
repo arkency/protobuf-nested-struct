@@ -32,6 +32,8 @@ module RubyEventStore
             self.timestamp_value = Google::Protobuf::Timestamp.new.tap{|gpt| gpt.from_time(obj) }
           when Hash
             self.struct_value = Struct.new.tap{|ps| ps.from_ruby(obj) }
+          when Array
+            self.list_value = ListValue.new.tap{|ps| ps.from_ruby(obj) }
           else
             raise ArgumentError, "not allowed: #{obj.inspect}"
           end
@@ -55,6 +57,8 @@ module RubyEventStore
           timestamp_value.to_time
         when :struct_value
           struct_value.to_ruby
+        when :list_value
+          list_value.to_ruby
         else
           raise ArgumentError
         end
