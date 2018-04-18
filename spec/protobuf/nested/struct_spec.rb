@@ -1,8 +1,9 @@
 require "protobuf/nested/struct"
 
 RSpec.describe Protobuf::Nested do
-  Value  = RubyEventStore::Protobuf::Value
-  S = RubyEventStore::Protobuf::Struct
+  Value = RubyEventStore::Protobuf::Value
+  S = RubyEventStore::Protobuf::Struct # HashMapValue
+  ListValue = RubyEventStore::Protobuf::ListValue
 
   specify "serializes nil" do
     v = Value.new
@@ -85,6 +86,16 @@ RSpec.describe Protobuf::Nested do
     v.from_ruby({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
     expect(v.to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
     expect(clone(v).to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+  end
+
+  specify "serializes Array" do
+    l = ListValue.new
+    l.from_ruby([1, 2.0, Date.today, nil])
+    expect(l.to_ruby).to eql([1, 2.0, Date.today, nil])
+    expect(clone(l).to_ruby).to eql([1, 2.0, Date.today, nil])
+
+    l.from_ruby([true, false])
+    expect(l.to_ruby).to eql([true, false])
   end
 
   def clone(v)

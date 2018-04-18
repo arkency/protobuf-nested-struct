@@ -33,7 +33,7 @@ module RubyEventStore
           when Hash
             self.struct_value = Struct.new.tap{|ps| ps.from_ruby(obj) }
           else
-            raise ArgumentError
+            raise ArgumentError, "not allowed: #{obj.inspect}"
           end
       end
 
@@ -75,6 +75,20 @@ module RubyEventStore
         fields.each_with_object({}) do |(key, value), hash|
           hash[key] = value.to_ruby
         end
+      end
+    end
+
+    ListValue.class_eval do
+      def from_ruby(obj)
+        Array === obj or raise ArgumentError
+        self.values.clear
+         obj.each do |value|
+          self.values << Value.new.tap{|v| v.from_ruby(value) }
+        end
+      end
+
+      def to_ruby
+        values.map{|v| v.to_ruby }
       end
     end
 
