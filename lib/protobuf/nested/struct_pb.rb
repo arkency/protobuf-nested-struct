@@ -6,35 +6,33 @@ require 'google/protobuf'
 require 'google/protobuf/timestamp_pb'
 require 'google/type/date_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "ruby_event_store.protobuf.HashMapStringValue" do
-    map :fields, :string, :message, 1, "ruby_event_store.protobuf.Value"
+  add_message "protobuf_nested_struct.HashMapStringValue" do
+    map :fields, :string, :message, 1, "protobuf_nested_struct.Value"
   end
-  add_message "ruby_event_store.protobuf.Value" do
+  add_message "protobuf_nested_struct.Value" do
     oneof :kind do
-      optional :null_value, :enum, 1, "ruby_event_store.protobuf.NullValue"
+      optional :null_value, :enum, 1, "protobuf_nested_struct.NullValue"
       optional :double_value, :double, 2
       optional :int_value, :int64, 3
       optional :string_value, :string, 4
       optional :bool_value, :bool, 5
       optional :date_value, :message, 6, "google.type.Date"
       optional :timestamp_value, :message, 7, "google.protobuf.Timestamp"
-      optional :string_map_value, :message, 20, "ruby_event_store.protobuf.HashMapStringValue"
-      optional :list_value, :message, 21, "ruby_event_store.protobuf.ListValue"
+      optional :string_map_value, :message, 20, "protobuf_nested_struct.HashMapStringValue"
+      optional :list_value, :message, 21, "protobuf_nested_struct.ListValue"
     end
   end
-  add_message "ruby_event_store.protobuf.ListValue" do
-    repeated :values, :message, 1, "ruby_event_store.protobuf.Value"
+  add_message "protobuf_nested_struct.ListValue" do
+    repeated :values, :message, 1, "protobuf_nested_struct.Value"
   end
-  add_enum "ruby_event_store.protobuf.NullValue" do
+  add_enum "protobuf_nested_struct.NullValue" do
     value :NULL_VALUE, 0
   end
 end
 
-module RubyEventStore
-  module Protobuf
-    HashMapStringValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.HashMapStringValue").msgclass
-    Value = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.Value").msgclass
-    ListValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.ListValue").msgclass
-    NullValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.NullValue").enummodule
-  end
+module ProtobufNestedStruct
+  HashMapStringValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("protobuf_nested_struct.HashMapStringValue").msgclass
+  Value = Google::Protobuf::DescriptorPool.generated_pool.lookup("protobuf_nested_struct.Value").msgclass
+  ListValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("protobuf_nested_struct.ListValue").msgclass
+  NullValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("protobuf_nested_struct.NullValue").enummodule
 end

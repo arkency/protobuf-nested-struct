@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 import "google/type/date.proto";
-package ruby_event_store.protobuf;
+package protobuf_nested_struct;
 
 message HashMapStringValue {
   map<string, Value> fields = 1;
