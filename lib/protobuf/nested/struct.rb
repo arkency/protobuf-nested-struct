@@ -30,6 +30,8 @@ module RubyEventStore
             self.date_value = Google::Type::Date.new(day: obj.day, month: obj.month, year: obj.year)
           when Time
             self.timestamp_value = Google::Protobuf::Timestamp.new.tap{|gpt| gpt.from_time(obj) }
+          when Hash
+            self.struct_value = Struct.new.tap{|ps| ps.from_ruby(obj) }
           else
             raise ArgumentError
           end
@@ -51,6 +53,8 @@ module RubyEventStore
           Date.new(date_value.year, date_value.month, date_value.day)
         when :timestamp_value
           timestamp_value.to_time
+        when :struct_value
+          struct_value.to_ruby
         else
           raise ArgumentError
         end

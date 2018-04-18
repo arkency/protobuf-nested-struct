@@ -75,6 +75,18 @@ RSpec.describe Protobuf::Nested do
     expect(clone(s).to_ruby).to eql({'one' => 1, 'two' => 2.0})
   end
 
+  specify "serializes nested Hash" do
+    s = S.new
+    s.from_ruby({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+    expect(s.to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+    expect(clone(s).to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+
+    v = Value.new
+    v.from_ruby({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+    expect(v.to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+    expect(clone(v).to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
+  end
+
   def clone(v)
     klass = v.class
     klass.decode(klass.encode(v))
