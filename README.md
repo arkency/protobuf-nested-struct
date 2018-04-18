@@ -38,7 +38,13 @@ Or install it yourself as:
 v = ProtobufNestedStruct::Value.new
 v.from_ruby(obj)
 serialized = ProtobufNestedStruct::Value.encode(v)
+# store the serialized binary string in DB or send over network
+
+# receive deserialized binary string from DB or network 
 deserialized = ProtobufNestedStruct::Value.decode(serialized)
+copy = deserialized.to_ruby
+
+expect(copy).to eql(obj)
 ```
 
 where `obj` can be an instance of one of the supported types.
@@ -50,7 +56,7 @@ where `obj` can be an instance of one of the supported types.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/arkency/protobuf_nested_struct 
+Bug reports and pull requests are welcome on GitHub at https://github.com/arkency/protobuf-nested-struct 
 
 ## Credits
 
