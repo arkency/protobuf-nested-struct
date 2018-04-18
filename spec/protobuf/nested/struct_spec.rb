@@ -1,11 +1,8 @@
 require "protobuf/nested/struct"
 
-RSpec.describe Protobuf::Nested::Struct do
-  Value = RubyEventStore::Protobuf::Value
-
-  it "has a version number" do
-    expect(Protobuf::Nested::Struct::VERSION).not_to be nil
-  end
+RSpec.describe Protobuf::Nested do
+  Value  = RubyEventStore::Protobuf::Value
+  S = RubyEventStore::Protobuf::Struct
 
   specify "serializes nil" do
     v = Value.new
@@ -71,7 +68,15 @@ RSpec.describe Protobuf::Nested::Struct do
     expect(clone(v).to_ruby).to eql(Time.new(2018,  4, 18, 12 , 13, 14.5))
   end
 
+  specify "serializes Hash" do
+    s = S.new
+    s.from_ruby({'one' => 1, 'two' => 2.0})
+    expect(s.to_ruby).to eql({'one' => 1, 'two' => 2.0})
+    expect(clone(s).to_ruby).to eql({'one' => 1, 'two' => 2.0})
+  end
+
   def clone(v)
-    Value.decode(Value.encode(v))
+    klass = v.class
+    klass.decode(klass.encode(v))
   end
 end

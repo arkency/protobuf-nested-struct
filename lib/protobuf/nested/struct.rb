@@ -57,5 +57,23 @@ module RubyEventStore
       end
 
     end
+
+    Struct.class_eval do
+      def from_ruby(obj)
+        Hash === obj or raise ArgumentError
+        obj.each do |key, value|
+          self.fields[key] ||= Value.new
+          self.fields[key].from_ruby(value)
+        end
+      end
+
+      def to_ruby
+        fields.each_with_object({}) do |(key, value), hash|
+          hash[key] = value.to_ruby
+        end
+      end
+    end
+
+
   end
 end
