@@ -63,3 +63,11 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/arkenc
 * https://github.com/google/protobuf/blob/07b9238a1c03ef0351bcb4ca57d773eb7b7c5824/src/google/protobuf/struct.proto
 * https://github.com/google/protobuf/blob/9497a657d577ebda0272711651c3dcdda3a4ac35/ruby/lib/google/protobuf/well_known_types.rb#L149
 * https://github.com/google/protobuf/blob/9497a657d577ebda0272711651c3dcdda3a4ac35/ruby/tests/well_known_types_test.rb#L35
+
+## About
+
+<img src="https://arkency.com/images/arkency.png" alt="Arkency" width="60px" align="left" />
+
+This repository is funded and maintained by [Arkency](https://arkency.com). Check out our other [open-source projects](https://github.com/arkency), especially [Rails Event Store](https://github.com/RailsEventStore).
+
+Consider [hiring us](https://arkency.com/hire-us) to grow your Ruby/Rails apps and business. Make sure to check out [our blog](https://blog.arkency.com).
