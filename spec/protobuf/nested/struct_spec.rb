@@ -55,6 +55,14 @@ RSpec.describe Protobuf::Nested::Struct do
     expect(clone(v).to_ruby).to eql(false)
   end
 
+  specify "serializes Date" do
+    v = Value.new
+    v.from_ruby(Date.new(2018, 4, 18))
+    expect(v.to_ruby).to eql(Date.new(2018, 4, 18))
+
+    expect(clone(v).to_ruby).to eql(Date.new(2018, 4, 18))
+  end
+
   def clone(v)
     Value.decode(Value.encode(v))
   end
