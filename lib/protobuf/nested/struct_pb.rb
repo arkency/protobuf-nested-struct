@@ -6,7 +6,7 @@ require 'google/protobuf'
 require 'google/protobuf/timestamp_pb'
 require 'google/type/date_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
-  add_message "ruby_event_store.protobuf.Struct" do
+  add_message "ruby_event_store.protobuf.HashMapStringValue" do
     map :fields, :string, :message, 1, "ruby_event_store.protobuf.Value"
   end
   add_message "ruby_event_store.protobuf.Value" do
@@ -18,7 +18,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :bool_value, :bool, 5
       optional :date_value, :message, 6, "google.type.Date"
       optional :timestamp_value, :message, 7, "google.protobuf.Timestamp"
-      optional :struct_value, :message, 20, "ruby_event_store.protobuf.Struct"
+      optional :string_map_value, :message, 20, "ruby_event_store.protobuf.HashMapStringValue"
       optional :list_value, :message, 21, "ruby_event_store.protobuf.ListValue"
     end
   end
@@ -32,7 +32,7 @@ end
 
 module RubyEventStore
   module Protobuf
-    Struct = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.Struct").msgclass
+    HashMapStringValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.HashMapStringValue").msgclass
     Value = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.Value").msgclass
     ListValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.ListValue").msgclass
     NullValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("ruby_event_store.protobuf.NullValue").enummodule

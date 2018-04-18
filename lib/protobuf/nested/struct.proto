@@ -3,7 +3,7 @@ import "google/protobuf/timestamp.proto";
 import "google/type/date.proto";
 package ruby_event_store.protobuf;
 
-message Struct {
+message HashMapStringValue {
   map<string, Value> fields = 1;
 }
 
@@ -18,7 +18,7 @@ message Value {
     google.type.Date date_value = 6;
     google.protobuf.Timestamp timestamp_value = 7;
 
-    Struct struct_value = 20;
+    HashMapStringValue string_map_value = 20;
     ListValue list_value = 21;
   }
 }

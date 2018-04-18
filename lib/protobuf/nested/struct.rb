@@ -31,7 +31,7 @@ module RubyEventStore
           when Time
             self.timestamp_value = Google::Protobuf::Timestamp.new.tap{|gpt| gpt.from_time(obj) }
           when Hash
-            self.struct_value = Struct.new.tap{|ps| ps.from_ruby(obj) }
+            self.string_map_value = HashMapStringValue.new.tap{|ps| ps.from_ruby(obj) }
           when Array
             self.list_value = ListValue.new.tap{|ps| ps.from_ruby(obj) }
           else
@@ -55,8 +55,8 @@ module RubyEventStore
           Date.new(date_value.year, date_value.month, date_value.day)
         when :timestamp_value
           timestamp_value.to_time
-        when :struct_value
-          struct_value.to_ruby
+        when :string_map_value
+          string_map_value.to_ruby
         when :list_value
           list_value.to_ruby
         else
@@ -66,7 +66,7 @@ module RubyEventStore
 
     end
 
-    Struct.class_eval do
+    HashMapStringValue.class_eval do
       def from_ruby(obj)
         Hash === obj or raise ArgumentError
         obj.each do |key, value|

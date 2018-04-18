@@ -2,9 +2,9 @@ require "protobuf/nested/struct"
 require "yaml"
 
 RSpec.describe Protobuf::Nested do
-  Value        = RubyEventStore::Protobuf::Value
-  S            = RubyEventStore::Protobuf::Struct # HashMapValue
-  ListValue    = RubyEventStore::Protobuf::ListValue
+  Value               = RubyEventStore::Protobuf::Value
+  HashMapStringValue  = RubyEventStore::Protobuf::HashMapStringValue
+  ListValue           = RubyEventStore::Protobuf::ListValue
 
   specify "serializes nil" do
     v = Value.new
@@ -71,14 +71,14 @@ RSpec.describe Protobuf::Nested do
   end
 
   specify "serializes Hash" do
-    s = S.new
+    s = HashMapStringValue.new
     s.from_ruby({'one' => 1, 'two' => 2.0})
     expect(s.to_ruby).to eql({'one' => 1, 'two' => 2.0})
     expect(clone(s).to_ruby).to eql({'one' => 1, 'two' => 2.0})
   end
 
   specify "serializes nested Hash" do
-    s = S.new
+    s = HashMapStringValue.new
     s.from_ruby({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
     expect(s.to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
     expect(clone(s).to_ruby).to eql({'1' => 1, '2' => 2.0, '3' => {'4' => Date.today, '5' => {'6' => '7'}}})
@@ -239,7 +239,7 @@ RSpec.describe Protobuf::Nested do
     expect(v.to_ruby).to eql(hash2)
     expect(clone(v).to_ruby).to eql(hash2)
 
-    s = S.new
+    s = HashMapStringValue.new
     s.from_ruby(hash)
     expect(s.to_ruby).to eql(hash2)
     expect(clone(s).to_ruby).to eql(hash2)
