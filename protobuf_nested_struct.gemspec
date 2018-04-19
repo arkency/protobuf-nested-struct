@@ -9,18 +9,15 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Robert Pankowecki", "Arkency"]
   spec.email         = ["dev@arkency.com"]
 
-  spec.summary       = %q{Serialize deep structures to protobuf}
-  spec.description   = %q{Serialize deep structures to protobuf}
-  spec.homepage      = ""
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
+  spec.summary       = %q{Serialize primitives and deep structures (array, hash) to protobuf}
+  spec.description   = %q{Serialize primitives and deep structures (array, hash) to protobuf}
+  spec.homepage      = "https://github.com/arkency/protobuf-nested-struct"
+  spec.metadata      = {
+    "homepage_uri"    => "https://github.com/arkency/protobuf-nested-struct",
+    "changelog_uri"   => "https://github.com/arkency/protobuf-nested-struct/releases",
+    "source_code_uri" => "https://github.com/arkency/protobuf-nested-struct",
+    "bug_tracker_uri" => "https://github.com/arkency/protobuf-nested-struct/issues",
+  }
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
