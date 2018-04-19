@@ -8,6 +8,8 @@ module ProtobufNestedStruct
       expect(v.to_ruby).to eql(nil)
 
       expect(clone(v).to_ruby).to eql(nil)
+
+      expect(v.null_value).to eq(:NULL_VALUE)
     end
 
     specify "serializes int" do
@@ -239,6 +241,23 @@ module ProtobufNestedStruct
       s.from_ruby(hash)
       expect(s.to_ruby).to eql(hash2)
       expect(clone(s).to_ruby).to eql(hash2)
+    end
+
+    specify "cannot deserialize nothing" do
+      v = Value.new
+      expect{ v.to_ruby }.to raise_error(ArgumentError)
+    end
+
+    specify "cannot serialize unsupported types" do
+      v = Value.new
+      expect{ v.from_ruby(Object.new) }.to raise_error(ArgumentError, /not allowed.*<Object:.*>/)
+      expect{ v.from_ruby(Class.new{def inspect; "YO"; end}.new) }.to raise_error(ArgumentError, /not allowed.*YO/)
+
+      v = HashMapStringValue.new
+      expect{ v.from_ruby(Object.new) }.to raise_error(ArgumentError)
+
+      v = ListValue.new
+      expect{ v.from_ruby(Object.new) }.to raise_error(ArgumentError)
     end
 
     def clone(v)

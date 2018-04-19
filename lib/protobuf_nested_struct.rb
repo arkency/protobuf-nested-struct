@@ -9,7 +9,7 @@ module ProtobufNestedStruct
   class Value
     def from_ruby(obj)
       case obj
-        when NilClass
+        when nil
           self.null_value = 0
         when Integer
           self.int_value = obj
@@ -33,7 +33,7 @@ module ProtobufNestedStruct
     end
 
     def to_ruby
-      case self.kind
+      case kind
         when :null_value
           nil
         when :int_value
@@ -63,8 +63,8 @@ module ProtobufNestedStruct
     def from_ruby(obj)
       Hash === obj or raise ArgumentError
       obj.each do |key, value|
-        self.fields[key] ||= Value.new
-        self.fields[key].from_ruby(value)
+        fields[key] ||= Value.new
+        fields[key].from_ruby(value)
       end
     end
 
@@ -78,9 +78,9 @@ module ProtobufNestedStruct
   class ListValue
     def from_ruby(obj)
       Array === obj or raise ArgumentError
-      self.values.clear
+      values.clear
       obj.each do |value|
-        self.values << Value.new.tap{|v| v.from_ruby(value) }
+        values << Value.new.tap{|v| v.from_ruby(value) }
       end
     end
 
