@@ -47,6 +47,13 @@ expect(copy).to eql(obj)
 
 where `obj` can be an instance of one of the supported types.
 
+## Protobuf schema definition
+
+You can use it to generate code for serialization and deserialization in any programming language supported
+by Protobuf.
+
+* https://github.com/arkency/protobuf-nested-struct/blob/master/lib/protobuf_nested_struct/struct.proto
+
 ## Development
 
 * `bundle install`
