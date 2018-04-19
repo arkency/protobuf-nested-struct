@@ -35,14 +35,12 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-v = ProtobufNestedStruct::Value.new
-v.from_ruby(obj)
-serialized = ProtobufNestedStruct::Value.encode(v)
 # store the serialized binary string in DB or send over network
+serialized = ProtobufNestedStruct.dump(v)
 
-# receive deserialized binary string from DB or network 
-deserialized = ProtobufNestedStruct::Value.decode(serialized)
-copy = deserialized.to_ruby
+
+# receive de-serialized binary string from DB or network 
+copy = ProtobufNestedStruct.load(serialized)
 
 expect(copy).to eql(obj)
 ```

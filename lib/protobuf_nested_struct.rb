@@ -89,4 +89,14 @@ module ProtobufNestedStruct
     end
   end
 
+  def self.dump(obj)
+    v = Value.new
+    v.from_ruby(obj)
+    Value.encode(v)
+  end
+
+  def self.load(string)
+    v = Value.decode(string)
+    v.to_ruby
+  end
 end

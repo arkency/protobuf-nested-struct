@@ -260,9 +260,29 @@ module ProtobufNestedStruct
       expect{ v.from_ruby(Object.new) }.to raise_error(ArgumentError)
     end
 
+    specify ".load & .dump" do
+      obj = {"asd" => "def"}
+      expect(dump_and_load(obj)).to eql(obj)
+
+      obj = nil
+      expect(dump_and_load(obj)).to eql(obj)
+
+      obj = [1,2,"5", 6.0]
+      expect(dump_and_load(obj)).to eql(obj)
+
+      obj = true
+      expect(dump_and_load(obj)).to eql(obj)
+    end
+
+    private
+
     def clone(v)
       klass = v.class
       klass.decode(klass.encode(v))
+    end
+
+    def dump_and_load(obj)
+      ProtobufNestedStruct.load(ProtobufNestedStruct.dump(obj))
     end
   end
 end
