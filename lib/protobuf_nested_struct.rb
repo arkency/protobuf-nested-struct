@@ -6,7 +6,7 @@ require 'protobuf_nested_struct/version'
 require 'protobuf_nested_struct/struct_pb'
 
 module ProtobufNestedStruct
-  Value.class_eval do
+  class Value
     def from_ruby(obj)
       case obj
         when NilClass
@@ -59,7 +59,7 @@ module ProtobufNestedStruct
 
   end
 
-  HashMapStringValue.class_eval do
+  class HashMapStringValue
     def from_ruby(obj)
       Hash === obj or raise ArgumentError
       obj.each do |key, value|
@@ -75,7 +75,7 @@ module ProtobufNestedStruct
     end
   end
 
-  ListValue.class_eval do
+  class ListValue
     def from_ruby(obj)
       Array === obj or raise ArgumentError
       self.values.clear
