@@ -262,16 +262,40 @@ module ProtobufNestedStruct
 
     specify ".load & .dump" do
       obj = {"asd" => "def"}
-      expect(dump_and_load(obj)).to eql(obj)
+      expect(dump_and_load(obj, ProtobufNestedStruct)).to eql(obj)
 
       obj = nil
-      expect(dump_and_load(obj)).to eql(obj)
+      expect(dump_and_load(obj, ProtobufNestedStruct)).to eql(obj)
 
       obj = [1,2,"5", 6.0]
-      expect(dump_and_load(obj)).to eql(obj)
+      expect(dump_and_load(obj, ProtobufNestedStruct)).to eql(obj)
 
       obj = true
-      expect(dump_and_load(obj)).to eql(obj)
+      expect(dump_and_load(obj, ProtobufNestedStruct)).to eql(obj)
+    end
+
+    specify "Value.load & Value.dump" do
+      obj = {"asd" => "def"}
+      expect(dump_and_load(obj, Value)).to eql(obj)
+
+      obj = nil
+      expect(dump_and_load(obj, Value)).to eql(obj)
+
+      obj = [1,2,"5", 6.0]
+      expect(dump_and_load(obj, Value)).to eql(obj)
+
+      obj = true
+      expect(dump_and_load(obj, Value)).to eql(obj)
+    end
+
+    specify "HashMapStringValue.load & HashMapStringValue.dump" do
+      obj = {"asd" => "def"}
+      expect(dump_and_load(obj, HashMapStringValue)).to eql(obj)
+    end
+
+    specify "ListValue.load & ListValue.dump" do
+      obj = [1,2,"5", 6.0]
+      expect(dump_and_load(obj, ListValue)).to eql(obj)
     end
 
     private
@@ -281,8 +305,8 @@ module ProtobufNestedStruct
       klass.decode(klass.encode(v))
     end
 
-    def dump_and_load(obj)
-      ProtobufNestedStruct.load(ProtobufNestedStruct.dump(obj))
+    def dump_and_load(obj, klass)
+      klass.load(klass.dump(obj))
     end
   end
 end

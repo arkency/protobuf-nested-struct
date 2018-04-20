@@ -7,6 +7,17 @@ require 'protobuf_nested_struct/struct_pb'
 
 module ProtobufNestedStruct
   class Value
+    def self.dump(obj)
+      v = new
+      v.from_ruby(obj)
+      encode(v)
+    end
+
+    def self.load(string)
+      v = decode(string)
+      v.to_ruby
+    end
+
     def from_ruby(obj)
       case obj
         when nil
@@ -60,6 +71,17 @@ module ProtobufNestedStruct
   end
 
   class HashMapStringValue
+    def self.dump(obj)
+      v = new
+      v.from_ruby(obj)
+      encode(v)
+    end
+
+    def self.load(string)
+      v = decode(string)
+      v.to_ruby
+    end
+
     def from_ruby(obj)
       Hash === obj or raise ArgumentError
       obj.each do |key, value|
@@ -76,6 +98,17 @@ module ProtobufNestedStruct
   end
 
   class ListValue
+    def self.dump(obj)
+      v = new
+      v.from_ruby(obj)
+      encode(v)
+    end
+
+    def self.load(string)
+      v = decode(string)
+      v.to_ruby
+    end
+
     def from_ruby(obj)
       Array === obj or raise ArgumentError
       values.clear
@@ -90,13 +123,10 @@ module ProtobufNestedStruct
   end
 
   def self.dump(obj)
-    v = Value.new
-    v.from_ruby(obj)
-    Value.encode(v)
+    Value.dump(obj)
   end
 
   def self.load(string)
-    v = Value.decode(string)
-    v.to_ruby
+    Value.load(string)
   end
 end
