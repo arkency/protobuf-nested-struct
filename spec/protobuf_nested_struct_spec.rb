@@ -231,7 +231,7 @@ module ProtobufNestedStruct
         ]
       }
 
-      hash2 = YAML.load(YAML.dump(hash))
+      hash2 = YAML.safe_load(YAML.dump(hash), permitted_classes: [Date, Time])
       v = Value.new
       v.from_ruby(hash)
       expect(v.to_ruby).to eql(hash2)
