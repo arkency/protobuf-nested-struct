@@ -9,9 +9,15 @@ BIG_NUMBER = 100_000
 AVG_NUMBER = 10_000
 PRNS = ProtobufNestedStruct
 
+
+
 MessagePack.singleton_class.class_eval do
   alias_method :dump, :pack
   alias_method :load, :unpack
+end
+
+YAML.singleton_class.class_eval do
+  alias_method :load, :unsafe_load
 end
 
 primitives = [
