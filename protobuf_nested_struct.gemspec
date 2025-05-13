@@ -5,6 +5,7 @@ require_relative "lib/protobuf_nested_struct/version"
 Gem::Specification.new do |spec|
   spec.name = "protobuf_nested_struct"
   spec.version = ProtobufNestedStruct::VERSION
+  spec.license = "MIT"
   spec.authors = ["Robert Pankowecki", "Arkency"]
   spec.email = ["dev@arkency.com"]
   spec.summary =
