@@ -27,5 +27,7 @@ Gem::Specification.new do |spec|
     "rubygems_mfa_required" => "true"
   }
 
+  spec.required_ruby_version = ">= 2.7"
+
   spec.add_dependency "google-protobuf", ">= 3.25.7", "< 4"
 end
