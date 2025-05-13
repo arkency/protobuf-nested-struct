@@ -13,6 +13,8 @@ jobs:
   mutate:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    env:
+      RUBYOPT: "--enable-frozen-string-literal"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,5 +25,3 @@ jobs:
           ruby-version: ruby-3.4
           bundler-cache: true
       - run: bin/mutant run
-        env:
-          RUBYOPT: "--enable-frozen-string-literal"

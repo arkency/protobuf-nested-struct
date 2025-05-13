@@ -18,6 +18,9 @@ jobs:
       matrix:
         ruby: [ruby-3.4, ruby-3.3, ruby-3.2]
         gemfile: [Gemfile, Gemfile.google_protobuf_3_25]
+    env:
+      BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
+      RUBYOPT: "--enable-frozen-string-literal"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,6 +31,3 @@ jobs:
           ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
       - run: bin/rspec
-        env:
-          BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
-          RUBYOPT: "--enable-frozen-string-literal"
