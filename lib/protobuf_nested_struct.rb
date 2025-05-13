@@ -1,9 +1,9 @@
-require 'date'
-require 'google/protobuf'
-require 'google/protobuf/well_known_types'
+require "date"
+require "google/protobuf"
+require "google/protobuf/well_known_types"
 
-require 'protobuf_nested_struct/version'
-require 'protobuf_nested_struct/struct_pb'
+require "protobuf_nested_struct/version"
+require "protobuf_nested_struct/struct_pb"
 
 module ProtobufNestedStruct
   class Value
@@ -20,54 +20,56 @@ module ProtobufNestedStruct
 
     def from_ruby(obj)
       case obj
-        when nil
-          self.null_value = 0
-        when Integer
-          self.int_value = obj
-        when Float
-          self.double_value = obj
-        when String
-          self.string_value = obj
-        when TrueClass, FalseClass
-          self.bool_value = obj
-        when Date
-          self.date_value = Google::Type::Date.new(day: obj.day, month: obj.month, year: obj.year)
-        when Time
-          self.timestamp_value = Google::Protobuf::Timestamp.new.tap{|gpt| gpt.from_time(obj) }
-        when Hash
-          self.string_map_value = HashMapStringValue.new.tap{|ps| ps.from_ruby(obj) }
-        when Array
-          self.list_value = ListValue.new.tap{|ps| ps.from_ruby(obj) }
-        else
-          raise ArgumentError, "not allowed: #{obj.inspect}"
+      when nil
+        self.null_value = 0
+      when Integer
+        self.int_value = obj
+      when Float
+        self.double_value = obj
+      when String
+        self.string_value = obj
+      when TrueClass, FalseClass
+        self.bool_value = obj
+      when Date
+        self.date_value =
+          Google::Type::Date.new(day: obj.day, month: obj.month, year: obj.year)
+      when Time
+        self.timestamp_value =
+          Google::Protobuf::Timestamp.new.tap { |gpt| gpt.from_time(obj) }
+      when Hash
+        self.string_map_value =
+          HashMapStringValue.new.tap { |ps| ps.from_ruby(obj) }
+      when Array
+        self.list_value = ListValue.new.tap { |ps| ps.from_ruby(obj) }
+      else
+        raise ArgumentError, "not allowed: #{obj.inspect}"
       end
     end
 
     def to_ruby
       case kind
-        when :null_value
-          nil
-        when :int_value
-          int_value
-        when :double_value
-          double_value
-        when :string_value
-          string_value
-        when :bool_value
-          bool_value
-        when :date_value
-          Date.new(date_value.year, date_value.month, date_value.day)
-        when :timestamp_value
-          timestamp_value.to_time
-        when :string_map_value
-          string_map_value.to_ruby
-        when :list_value
-          list_value.to_ruby
-        else
-          raise ArgumentError
+      when :null_value
+        nil
+      when :int_value
+        int_value
+      when :double_value
+        double_value
+      when :string_value
+        string_value
+      when :bool_value
+        bool_value
+      when :date_value
+        Date.new(date_value.year, date_value.month, date_value.day)
+      when :timestamp_value
+        timestamp_value.to_time
+      when :string_map_value
+        string_map_value.to_ruby
+      when :list_value
+        list_value.to_ruby
+      else
+        raise ArgumentError
       end
     end
-
   end
 
   class HashMapStringValue
@@ -112,13 +114,11 @@ module ProtobufNestedStruct
     def from_ruby(obj)
       Array === obj or raise ArgumentError
       values.clear
-      obj.each do |value|
-        values << Value.new.tap{|v| v.from_ruby(value) }
-      end
+      obj.each { |value| values << Value.new.tap { |v| v.from_ruby(value) } }
     end
 
     def to_ruby
-      values.map{|v| v.to_ruby }
+      values.map { |v| v.to_ruby }
     end
   end
 
