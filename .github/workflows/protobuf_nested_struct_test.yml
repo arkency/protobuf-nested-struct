@@ -16,7 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby_version: [ruby-3.4, ruby-3.3, ruby-3.2]
+        ruby: [ruby-3.4, ruby-3.3, ruby-3.2]
+        gemfile: [Gemfile, Gemfile.google_protobuf_3_25]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,8 +25,9 @@ jobs:
       - run: test -e Gemfile.lock
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "${{ matrix.ruby_version }}"
+          ruby-version: "${{ matrix.ruby }}"
           bundler-cache: true
       - run: bin/rspec
         env:
+          BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
           RUBYOPT: "--enable-frozen-string-literal"

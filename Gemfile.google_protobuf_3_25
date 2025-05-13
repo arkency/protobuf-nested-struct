@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "google-protobuf", "~> 4.30"
+gem "google-protobuf", ">= 3.25.7", "< 4"
 gem "mutant-rspec"
 gem "rspec"
 gem "rake"
