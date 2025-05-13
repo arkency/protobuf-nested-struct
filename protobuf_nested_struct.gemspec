@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = %w[README.md]
 
   spec.metadata = {
-    "homepage_uri" => "https://github.com/arkency/protobuf-nested-struct",
     "changelog_uri" =>
       "https://github.com/arkency/protobuf-nested-struct/releases",
     "source_code_uri" => "https://github.com/arkency/protobuf-nested-struct",
