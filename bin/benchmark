@@ -1,11 +1,16 @@
 #!/usr/bin/env ruby
 
+require "bundler/inline"
+
+gemfile do
+  gem "msgpack"
+  gem "benchmark"
+  gem "protobuf_nested_struct", path: ".."
+end
+
 require "securerandom"
-require "benchmark"
-require "msgpack"
 require "yaml"
 require "json"
-require "protobuf_nested_struct"
 
 BIG_NUMBER = 100_000
 AVG_NUMBER = 10_000
