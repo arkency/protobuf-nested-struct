@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    protobuf_nested_struct (1.2.0)
+    protobuf_nested_struct (1.2.1)
       google-protobuf (>= 3.25.7)
 
 GEM
