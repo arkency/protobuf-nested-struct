@@ -1,0 +1,10 @@
+usage: opensource
+integration: 
+  name: rspec
+includes:
+- lib
+requires: 
+- protobuf_nested_struct
+matcher:
+  subjects:
+  - ProtobufNestedStruct*

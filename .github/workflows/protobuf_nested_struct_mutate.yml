@@ -1,0 +1,27 @@
+name: protobuf_nested_struct_mutate
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - script
+  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+jobs:
+  mutate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: test -e Gemfile.lock
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ruby-3.4
+          bundler-cache: true
+      - run: bundle exec mutant run
+        env:
+          RUBYOPT: "--enable-frozen-string-literal"

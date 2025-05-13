@@ -1,0 +1,32 @@
+name: protobu_nested_struct_test
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - script
+  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby_version:
+          [ruby-3.4, ruby-3.3, ruby-3.2, ruby-3.1, ruby-3.0, ruby-2.7]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - run: test -e Gemfile.lock
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "${{ matrix.ruby_version }}"
+          bundler-cache: true
+      - run: bundle exec rspec
+        env:
+          RUBYOPT: "--enable-frozen-string-literal"
