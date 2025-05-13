@@ -43,8 +43,8 @@ GEM
       parser (>= 3.3.0)
 
 PLATFORMS
-  arm64-darwin-24
-  ruby
+  arm64-darwin
+  x86_64-linux
 
 DEPENDENCIES
   mutant-rspec
