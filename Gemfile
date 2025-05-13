@@ -4,3 +4,4 @@ gemspec
 
 gem "mutant-rspec"
 gem "rspec"
+gem "rake"
