@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "date"
 require "google/protobuf"
 require "google/protobuf/well_known_types"
