@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     protobuf_nested_struct (1.2.1)
-      google-protobuf (>= 3.25.7)
+      google-protobuf (>= 4.26.0)
 
 GEM
   remote: https://rubygems.org/
