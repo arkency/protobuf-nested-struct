@@ -4,8 +4,8 @@ require "date"
 require "google/protobuf"
 require "google/protobuf/well_known_types"
 
-require "protobuf_nested_struct/version"
-require "protobuf_nested_struct/struct_pb"
+require_relative "protobuf_nested_struct/version"
+require_relative "protobuf_nested_struct/struct_pb"
 
 module ProtobufNestedStruct
   class Value
