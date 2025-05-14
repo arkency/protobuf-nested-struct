@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - run: test -e Gemfile.lock
+      - run: test -e "{{ matrix.gemfile }}.lock"
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "${{ matrix.ruby }}"
